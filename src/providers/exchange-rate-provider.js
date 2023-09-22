@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export class ExchangeRateProvider {
   #accessKey;
   #providerBaseUrl = "https://api.exchangeratesapi.io";
@@ -6,10 +8,24 @@ export class ExchangeRateProvider {
   }
 
   async getSupportedSymbols() {
-    return ["USD"];
+    return await axios
+      .get(`${this.#providerBaseUrl}/v1/symbols?access_key=${this.#accessKey}`)
+      .then((res) => {
+        return res.data.symbols;
+      })
+      .catch((e) => {});
   }
 
   async getExchangeRatesFor(baseSymbol) {
-    return [USD];
+    return await axios
+      .get(
+        `${this.#providerBaseUrl}/v1/symbols?access_key=${
+          this.#accessKey
+        }&base=${baseSymbol}`,
+      )
+      .then((res) => {
+        return res.data.rates;
+      })
+      .catch((e) => {});
   }
 }
