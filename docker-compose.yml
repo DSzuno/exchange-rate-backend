@@ -1,0 +1,16 @@
+version: "3.4"
+services:
+  exchange-rate:
+    env_file:
+      - .env
+    container_name: exchange-rate
+    image: exchange-rate-backend:latest
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: ${DOCKER_TARGET-production}
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "${PORT-7500}:${PORT-7500}"
