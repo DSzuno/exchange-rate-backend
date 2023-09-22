@@ -2,14 +2,14 @@
   "name": "exchange-rate-backend",
   "version": "1.0.0",
   "description": "Exchange rate frontend application",
-  "main": "app.js",
+  "main": "src",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node src",
+    "dev": "nodemon src",
     "lint": "eslint '**/*.js'",
     "prettier": "prettier '**/*.js' --check",
     "prettier:fix": "prettier '**/*.js' --write",
-    "test": "test"
+    "test": "mocha ./src/tests/**/*.spec.js"
   },
   "author": "Daniel Szunomar",
   "license": "ISC",
@@ -19,8 +19,13 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
+    "chai": "^4.3.8",
+    "chai-as-promised": "7.1.1",
     "eslint": "^8.49.0",
+    "mocha": "^10.2.0",
     "nodemon": "^3.0.1",
-    "prettier": "^3.0.3"
+    "prettier": "^3.0.3",
+    "sinon": "^16.0.0",
+    "supertest": "^6.3.3"
   }
 }
