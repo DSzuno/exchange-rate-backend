@@ -1,0 +1,11 @@
+{
+  "name": "exchange-rate-backend",
+  "version": "1.0.0",
+  "description": "Exchange rate frontend application",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Daniel Szunomar",
+  "license": "ISC"
+}
