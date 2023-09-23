@@ -109,10 +109,6 @@ describe("Exchange rate service", () => {
       repository.getExchangeRatesFor.returns(undefined);
       provider.getExchangeRatesFor.returns(["USD"])
 
-      const saveExchangeRatesForStub = sinon.stub(
-        repository,
-        "saveExchangeRatesFor",
-      );
 
       const service = new ExchangeRateService(
         provider,
