@@ -14,15 +14,22 @@ export class ExchangeRateRepository {
    * @param prefix
    * @param redisClient
    */
-  constructor({ host, port, updateFrequency = undefined, prefix = "", redisClient = undefined }) {
+  constructor({
+    host,
+    port,
+    updateFrequency = undefined,
+    prefix = "",
+    redisClient = undefined,
+  }) {
     this.#redisSetExpiration = updateFrequency;
     this.#prefix = prefix;
     if (redisClient !== undefined) {
-      this.#redisClient =  redisClient;
-    }
-    else {
+      this.#redisClient = redisClient;
+    } else {
       this.#redisClient = createClient({ url: `redis://${host}:${port}` });
-      this.#redisClient.on("error", (error) => console.error(`Error : ${error}`));
+      this.#redisClient.on("error", (error) =>
+        console.error(`Error : ${error}`),
+      );
       this.#redisClient.connect();
     }
   }
@@ -37,7 +44,9 @@ export class ExchangeRateRepository {
    * @returns {Promise<*>}
    */
   async getExchangeRatesFor(baseSymbol) {
-    return JSON.parse(await this.#redisClient.get(`${this.#prefix}:rate:${baseSymbol}`));
+    return JSON.parse(
+      await this.#redisClient.get(`${this.#prefix}:rate:${baseSymbol}`),
+    );
   }
 
   /**
@@ -49,13 +58,13 @@ export class ExchangeRateRepository {
   async saveExchangeRatesFor(baseSymbol, rates) {
     const setOptions = {};
     if (this.#redisSetExpiration !== undefined) {
-      setOptions.EX = this.#redisSetExpiration
+      setOptions.EX = this.#redisSetExpiration;
     }
 
     return await this.#redisClient.set(
       `${this.#prefix}:rate:${baseSymbol}`,
       JSON.stringify(rates),
-      setOptions
+      setOptions,
     );
   }
 
