@@ -13,4 +13,20 @@ services:
     volumes:
       - ./:/usr/src/app
     ports:
-      - "${PORT-7500}:${PORT-7500}"
+      - "${PORT-7500}:7500"
+    depends_on:
+      cache:
+        condition: service_healthy
+  cache:
+    image: redis:6.2-alpine
+    ports:
+      - "${REDIS_PORT-6379}:6379"
+    command: redis-server --save 20 1 --loglevel warning
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+    volumes:
+      - cache:/data
+
+volumes:
+  cache:
+    driver: local
