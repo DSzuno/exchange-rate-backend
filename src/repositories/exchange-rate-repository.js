@@ -72,6 +72,8 @@ export class ExchangeRateRepository {
     for (const symbol of symbols) {
       this.#supportedSymbols.add(symbol);
     }
+
+    return this.#supportedSymbols;
   }
 
   /**

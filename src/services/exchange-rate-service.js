@@ -41,7 +41,8 @@ export class ExchangeRateService {
       if (supportedSymbols === undefined) {
         return;
       }
-      await this.#rateRepository.saveSupportedSymbols(supportedSymbols);
+      supportedSymbols =
+          await this.#rateRepository.saveSupportedSymbols(supportedSymbols);
     }
     return supportedSymbols.has(symbol);
   }
