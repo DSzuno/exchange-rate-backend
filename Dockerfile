@@ -1,6 +1,6 @@
 #Each instruction in this file creates a new layer
 #Here we are getting our node as Base image
-FROM node:latest AS base
+FROM node:20-alpine3.17 AS base
 LABEL authors="Daniel Szunomar"
 #Creating a new directory for app files and setting path in the container
 RUN mkdir -p /usr/src/app
@@ -8,10 +8,11 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 #copying the package.json file(contains dependencies) from project source dir to container dir
 COPY package.json /usr/src/app
+COPY package-lock.json /usr/src/app
 # installing the dependencies into the container
 RUN npm install
 #copying the source code of Application into the container dir
-COPY . /usr/src/app
+COPY ./src /usr/src/app/src
 #container exposed network port number
 EXPOSE 7500
 
