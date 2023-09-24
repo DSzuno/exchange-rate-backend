@@ -45,7 +45,7 @@ describe("Exchange rate provider INTEGRATION", () => {
 
       const response = await provider.getSupportedSymbols();
 
-      expect(response).to.be.eql(responseMock.symbols);
+      expect(response).to.be.eql(Object.keys(responseMock.symbols));
     });
   });
 

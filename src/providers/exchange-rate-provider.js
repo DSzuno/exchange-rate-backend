@@ -23,10 +23,11 @@ export class ExchangeRateProvider {
     return await axios
       .get(`${this.#providerBaseUrl}/v1/symbols?access_key=${this.#accessKey}`)
       .then((res) => {
-        return res.data.symbols;
+        return Object.keys(res.data.symbols);
       })
-      .catch((e) => {
-        throw new ProviderError(e.code);
+      .catch((error) => {
+        console.warn(error);
+        throw new ProviderError(error.code);
       });
   }
 
@@ -37,16 +38,13 @@ export class ExchangeRateProvider {
    */
   async getExchangeRatesFor(baseSymbol) {
     return await axios
-      .get(
-        `${this.#providerBaseUrl}/v1/latest?access_key=${
-          this.#accessKey
-        }&base=${baseSymbol}`,
-      )
+      .get(`${this.#providerBaseUrl}/v1/latest?access_key=${this.#accessKey}&base=${baseSymbol}`)
       .then((res) => {
         return res.data.rates;
       })
-      .catch((e) => {
-        throw new ProviderError(e.code);
+      .catch((error) => {
+        console.warn(error);
+        throw new ProviderError(error.code);
       });
   }
 }
