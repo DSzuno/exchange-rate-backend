@@ -34,6 +34,10 @@ export class ExchangeRateRepository {
     }
   }
 
+  /**
+   *
+   * @returns {Promise<void>}
+   */
   async tearDown() {
     await this.#redisClient.disconnect();
   }
@@ -53,7 +57,7 @@ export class ExchangeRateRepository {
    *
    * @param baseSymbol
    * @param rates
-   * @returns {Promise<undefined|object>>}
+   * @returns {Promise<*>}
    */
   async saveExchangeRatesFor(baseSymbol, rates) {
     const setOptions = {};
@@ -71,6 +75,11 @@ export class ExchangeRateRepository {
     );
   }
 
+  /**
+   *
+   * @param symbols
+   * @returns {Promise<Set<any>>}
+   */
   async saveSupportedSymbols(symbols) {
     for (const symbol of symbols) {
       this.#supportedSymbols.add(symbol);

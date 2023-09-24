@@ -21,6 +21,11 @@ export class ExchangeRateService {
     this.#rateRepository = rateRepository;
   }
 
+  /**
+   *
+   * @param symbol
+   * @returns {Promise<*>}
+   */
   async getExchangeRate(symbol) {
     if (await this.#isSymbolSupported(symbol)) {
       let rates = await this.#rateRepository.getExchangeRatesFor(symbol);
@@ -34,6 +39,11 @@ export class ExchangeRateService {
     throw new SymbolNotFoundError(symbol);
   }
 
+  /**
+   *
+   * @param symbol
+   * @returns {Promise<boolean>}
+   */
   async #isSymbolSupported(symbol) {
     let supportedSymbols = await this.#rateRepository.getSupportedSymbols();
     if (supportedSymbols === undefined) {
@@ -42,7 +52,7 @@ export class ExchangeRateService {
         return;
       }
       supportedSymbols =
-          await this.#rateRepository.saveSupportedSymbols(supportedSymbols);
+        await this.#rateRepository.saveSupportedSymbols(supportedSymbols);
     }
     return supportedSymbols.has(symbol);
   }

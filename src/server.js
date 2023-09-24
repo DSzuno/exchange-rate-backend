@@ -2,6 +2,11 @@ import express from "express";
 import exchangeRouter from "./routers/exchange-router.js";
 import cors from "cors";
 
+/**
+ *
+ * @param port
+ * @returns {Promise<http.Server<typeof IncomingMessage, typeof ServerResponse>>}
+ */
 export const runServer = async (port) => {
   if (!port) {
     process.exit(1);
