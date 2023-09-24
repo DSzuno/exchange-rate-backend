@@ -87,7 +87,7 @@ describe("Exchange rate service UNIT", () => {
     });
 
     it("Should call {getExchangeRatesFor} on [PROVIDER] to get rates", async () => {
-      repository.getExchangeRatesFor.returns(undefined);
+      repository.getExchangeRatesFor.returns(null);
       provider.getExchangeRatesFor.returns([""]);
 
       const service = new ExchangeRateService(provider, repository);
@@ -98,7 +98,7 @@ describe("Exchange rate service UNIT", () => {
     });
 
     it("Should call {saveExchangeRatesForStub} on [REPOSITORY] to save rates when successfully get from [PROVIDER]", async () => {
-      repository.getExchangeRatesFor.returns(undefined);
+      repository.getExchangeRatesFor.returns(null);
       provider.getExchangeRatesFor.returns(["USD"]);
 
       const service = new ExchangeRateService(provider, repository);

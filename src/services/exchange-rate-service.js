@@ -24,10 +24,11 @@ export class ExchangeRateService {
   async getExchangeRate(symbol) {
     if (await this.#isSymbolSupported(symbol)) {
       let rates = await this.#rateRepository.getExchangeRatesFor(symbol);
-      if (rates === undefined) {
+      if (rates === null) {
         rates = await this.#rateProvider.getExchangeRatesFor(symbol);
         await this.#rateRepository.saveExchangeRatesFor(symbol, rates);
       }
+
       return rates;
     }
     throw new SymbolNotFoundError(symbol);
