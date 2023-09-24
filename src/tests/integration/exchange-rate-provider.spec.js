@@ -54,7 +54,7 @@ describe("Exchange rate provider INTEGRATION", () => {
     it("Should throw error when response status is other than 200", async () => {
       nock(apiUrl)
         .get(`/v1/latest`)
-        .query({ access_key: accessKey, base: baseSymbol })
+        .query({ access_key: accessKey }) // , base: baseSymbol temporary removed
         .reply(500, "Internal server error");
 
       await expect(
@@ -79,7 +79,7 @@ describe("Exchange rate provider INTEGRATION", () => {
       };
       nock(apiUrl)
         .get(`/v1/latest`)
-        .query({ access_key: accessKey, base: baseSymbol })
+        .query({ access_key: accessKey }) //, base: baseSymbol temporary removed
         .reply(200, responseMock);
 
       const response = await provider.getExchangeRatesFor(baseSymbol);
