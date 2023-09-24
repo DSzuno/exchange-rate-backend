@@ -13,6 +13,8 @@ Below you can find the flow diagram of the backend decision graph:
 
 ## Installation
 
+Copy the contents of the `.env.example` to `.env`
+
 The project requires [docker](https://www.docker.com/) to run locally, but it can be deployed in production with the container too. 
 
 To create the container images, run `docker compose build` command
