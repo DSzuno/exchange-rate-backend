@@ -38,7 +38,7 @@ export class ExchangeRateProvider {
    */
   async getExchangeRatesFor(baseSymbol) {
     return await axios
-      .get(`${this.#providerBaseUrl}/v1/latest?access_key=${this.#accessKey}&base=${baseSymbol}`)
+      .get(`${this.#providerBaseUrl}/v1/latest?access_key=${this.#accessKey}`) //&base=${baseSymbol} removed temporary
       .then((res) => {
         return res.data.rates;
       })
