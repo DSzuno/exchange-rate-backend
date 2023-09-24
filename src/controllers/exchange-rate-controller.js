@@ -9,8 +9,9 @@ const port = process.env.REDIS_PORT;
 const prefix = process.env.REDIX_DB_PREFIX;
 
 const accessKey = process.env.EXCHANGE_RATE_ACCESS_KEY || "";
+
 const apiUrl =
-  process.env.EXCHANGE_RATE_API_URL || "https://api.exchangeratesapi.io";
+  process.env.EXCHANGE_RATE_API_URL || "http://api.exchangeratesapi.io";
 
 const service = new ExchangeRateService(
   new ExchangeRateProvider({ accessKey, apiUrl }),
@@ -19,14 +20,15 @@ const service = new ExchangeRateService(
 
 const index = async (req, res) => {
   try {
-    const rate = await service.getExchangeRate(req.params.get("symbol"));
-    res.body = { rate };
-    res.send();
+    const rate = await service.getExchangeRate(req.query.symbol);
+
+    res.send({ rate }).status(200);
   } catch (error) {
+    console.warn(error);
     if (error instanceof SymbolNotFoundError) {
-      res.status = 404;
+      res.status(404);
     } else {
-      res.status = 500;
+      res.status(500);
     }
     res.send();
   }
