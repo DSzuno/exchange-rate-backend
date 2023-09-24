@@ -1,5 +1,6 @@
 import express from "express";
 import exchangeRouter from "./routers/exchange-router.js";
+import cors from "cors";
 
 export const runServer = async (port) => {
   if (!port) {
@@ -13,9 +14,12 @@ export const runServer = async (port) => {
     console.log(`Exchange rate app listening on port ${port}!`);
   });
 
+  app.use(cors());
+
   app.use(apiPath + "/exchange-rate", exchangeRouter);
 
   app.use((error, req, res) => {
+    console.warn(error, req, res);
     res.status(error.status || 500);
 
     res.json({
