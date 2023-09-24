@@ -57,7 +57,10 @@ export class ExchangeRateRepository {
    */
   async saveExchangeRatesFor(baseSymbol, rates) {
     const setOptions = {};
-    if (this.#redisSetExpiration !== undefined) {
+    if (
+      this.#redisSetExpiration !== undefined &&
+      typeof this.#redisSetExpiration === "number"
+    ) {
       setOptions.EX = this.#redisSetExpiration;
     }
 
