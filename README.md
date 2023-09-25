@@ -40,3 +40,10 @@ if run via docker compose the host name is `cache` and the default port is `6379
 ## Usage
 
 The project can be executed with the following command: `docker compose up`
+
+## Test
+
+First need install dependencies at local environment with `npm install`
+Some test are testing repository layer (redis) for there tests need to run a docker container (`docker compose up`) to create a live redis instance.
+To run test had to execute the following command: `npm test` 
+
